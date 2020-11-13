@@ -1,0 +1,126 @@
+#include<iostream>
+#include<bits/stdc++.h>
+#include<cstdlib>
+//#include<random.h>
+
+using namespace std;
+char tic[3][3];
+//rand(int);
+int r1,r2,r3;
+void pc();
+void user();
+int check();
+int horcheck();
+int vercheck();
+int diagcheck();
+void Disprint();
+int main()
+{
+    //randomize();
+    int d = rand()%2;
+    for(int i=0;i<3;i++)
+    {
+        tic[0][i] = ' ';
+        tic[1][i] = ' ';
+        tic[2][i] = ' ';
+    }
+    Disprint();
+    if(d==0) user();
+    else pc();
+}
+void user()
+{
+    cout<<"Enter the Coordinates of x and y"<<endl;
+    int x;
+    int y;
+    cin>>x;
+    cin>>y;
+    if(((x<0)||(x>2)) && ((y>2)||(y<0)))
+    {
+        cout<<"Enter the valid Co-ordinates of x and y"<<endl;
+        user();
+    }
+    if(tic[x][y]==' ')
+    {
+        tic[x][y] = 'X';
+    }
+    else
+    {
+        cout<<"It was Filled           Enter other coordinates"<<endl;
+        user();
+    }
+    Disprint();
+    int d = check();
+    if(d==0) pc();
+    else
+    {
+        cout<<"Your the Winner"<<endl;
+    }
+}
+void pc()
+{
+    //randomise();
+    for(int i=0;i<=20;i++)
+    {
+        int f = rand()%3;
+        int z = rand()%3;
+        if(tic[f][z]=' ')
+        {
+            tic[f][z]='O';
+            break;
+        }
+    }
+    Disprint();
+    int d = check();
+    if(d==0) user();
+    else
+    {
+        cout<<"PC Winner"<<endl;
+    }
+}
+check()
+{
+    horcheck();
+    vercheck();
+    diagcheck();
+    return(r1|r2|r3);
+}
+horcheck()
+{
+    if((tic[0][0]==tic[0][1] && tic[0][1]==tic[0][2] && tic[0][0]!=' ')
+    ||(tic[1][0]==tic[1][1] && tic[1][1]==tic[1][2] && tic[1][0]!=' ')
+    ||(tic[2][0]==tic[2][1] && tic[2][1]==tic[2][2] && tic[2][0]!=' ')) r1=1;
+    else r1=0;
+    return r1;
+}
+vercheck()
+{
+    if((tic[0][0]==tic[1][0] && tic[1][0]==tic[2][0] && tic[0][0]!=' ')
+    ||(tic[0][1]==tic[1][1] && tic[1][1]==tic[2][1] && tic[1][0]!=' ')
+    ||(tic[0][2]==tic[1][2] && tic[1][2]==tic[2][2] && tic[2][0]!=' ')) r2=1;
+    else r2=0;
+    return r2;
+}
+diagcheck()
+{
+    if((tic[0][0]==tic[1][1] && tic[1][1]==tic[2][2] && tic[0][0]!=' ')
+    ||(tic[0][2]==tic[1][1] && tic[1][1]==tic[0][2] && tic[1][1]!=' ')) r3=1;
+    else r3=0;
+    return r3;
+}
+void Disprint()
+{
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+            cout<<tic[i][j]<<" ";
+        }
+        cout<<endl;
+        if(i!=2)
+        {
+            cout<<"--|---|--"<<endl;
+        }
+    }
+}
+
